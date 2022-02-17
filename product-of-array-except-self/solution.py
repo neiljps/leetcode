@@ -11,17 +11,38 @@ class Solution:
         # You must write an algorithm that runs in O(n) time 
         # and without using the division operation.
 
-        # hint: product = multiplication
+        hashTbl = {}
+        # put the numbers to multiply in a hash table, keyed by i
         for i in range(0, len(nums)):
-            toMultiply = []
-            for j in range(0, len(nums)):
-                if i != j:
-                    toMultiply.append(nums[j])
+            if i == 0:
+                hashTbl[i] = nums[1:]
+            elif i == (len(nums) - 1):
+                hashTbl[i] = nums[:-1]
+            else:
+                numsCopy = nums.copy()
+                numsCopy.pop(i)
+                hashTbl[i] = numsCopy
+
+        # for each key, multiply the numbers and put in the answer
+        for i in range(0, len(nums)):
+            toMultiply = hashTbl[i]
 
             product = 1
             for num in toMultiply:
                 product *= num
             answer.append(product)
+
+        # hint: product = multiplication
+        #for i in range(0, len(nums)):
+        #    toMultiply = []
+        #    for j in range(0, len(nums)):
+        #        if i != j:
+        #            toMultiply.append(nums[j])
+
+        #    product = 1
+        #    for num in toMultiply:
+        #        product *= num
+        #    answer.append(product)
 
         return answer
 
