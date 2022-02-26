@@ -3,15 +3,19 @@ from typing import List
 
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        answers = []
+        answers = {}
 
         for i in range(0, len(nums)):
-            for j in range(0, len(nums)):
-                if (i != j) and (nums[i] + nums[j] == target):
-                    answers = [i, j]
-                    return answers
+            difference = target - nums[i]
 
-        return answers
+            # check if target - difference is already in answers
+            if (target - difference) in answers.keys():
+                # we have a match
+                return [i, answers[target - difference]]
+            else: # place in dictionary for later
+                answers[difference] = i
+
+        return []
 
 def __main__():
     s = Solution()
